@@ -45,6 +45,7 @@ export default () => {
   const [capacity, setCapacity] = useState(10);
   const [arr, setArr] = useState<ElementProps[]>([]);
   const [step, setStep] = useState(false);
+  const [startWithZero, setStartWithZero] = useState(false);
   const [topPositon, setTopPosition] = useState(0);
 
   const push = () => {
@@ -52,9 +53,15 @@ export default () => {
       Swal.fire('Error', 'Stack Full', 'error');
       return;
     }
-    moveTop(arr.length + 1);
-    if (step) setTimeout(pushItem, 1000);
-    else pushItem();
+    if (startWithZero) {
+      pushItem();
+      if (step) setTimeout(() => moveTop(arr.length + 1), 1000);
+      else moveTop(arr.length + 1);
+    } else {
+      moveTop(arr.length + 1);
+      if (step) setTimeout(pushItem, 1000);
+      else pushItem();
+    }
   }
 
   const pushItem = () => {
@@ -74,22 +81,24 @@ export default () => {
       Swal.fire('Error', 'Stack Empty', 'error');
       return;
     }
-    setArr((arr) => arr.slice(0, -1));
-    if (step) setTimeout(popItem, 1000);
-    else popItem();
-  }
-
-  const popItem = () => {
-    moveTop(arr.length - 1);
+    if (startWithZero) {
+      moveTop(arr.length - 1);
+      if (step) setTimeout(() => setArr((arr) => arr.slice(0, -1)), 1000);
+      else setArr((arr) => arr.slice(0, -1));
+    } else {
+      setArr((arr) => arr.slice(0, -1));
+      if (step) setTimeout(() => moveTop(arr.length - 1), 1000);
+      else moveTop(arr.length - 1);
+    }
   }
 
   const moveTop = (size: number) => {
-    setTopPosition((capacity - size + 1) * 50 + 40);
+    setTopPosition((capacity - size - +startWithZero + 1) * 50 + 60);
   }
   
   useEffect(() => {
     moveTop(arr.length);
-  }, [capacity]);
+  }, [capacity, startWithZero]);
 
   return (
     <>
@@ -102,12 +111,16 @@ export default () => {
           <label>step: </label>
           <input type="checkbox" checked={step} onChange={(e) => setStep(e.target.checked) } />
         </div>
+        <div>
+          <label>start from 0: </label>
+          <input type="checkbox" checked={startWithZero} onChange={(e) => setStartWithZero(e.target.checked) } />
+        </div>
         <button onClick={push}>+</button>
         <button onClick={pop}>-</button>
       </ControllerWrapper>
       <StackWrapper>
         <StackIndex>
-          {[...Array(capacity + 1)].map((_, i) => (
+          {[...Array(capacity + +!startWithZero)].map((_, i) => (
             <div key={i}>{capacity - i - 1}</div>
           ))}
         </StackIndex>
