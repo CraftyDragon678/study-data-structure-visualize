@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { createRef, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ColumnContainer from "../components/ColumnContainer";
 import Element from "../components/Element";
@@ -45,17 +45,23 @@ export default () => {
   const [capacity, setCapacity] = useState(10);
   const [arr, setArr] = useState<ElementProps[]>([]);
   const [step, setStep] = useState(false);
+  const [topPositon, setTopPosition] = useState(0);
 
   const push = () => {
     if (arr.length >= capacity) {
       Swal.fire('Error', 'Stack Full', 'error');
       return;
     }
-    if (step) setTimeout(pushItem, 2000);
+    moveTop(arr.length + 1);
+    if (step) setTimeout(pushItem, 1000);
     else pushItem();
   }
 
   const pushItem = () => {
+    if (arr.length >= capacity) {
+      Swal.fire('Error', 'Stack Full', 'error');
+      return;
+    }
     setArr((arr) => [...arr, {
       val: Math.floor(Math.random() * 100).toString(),
       key: Math.floor(Math.random() * (16 ** 8 - 1)).toString(16),
@@ -68,17 +74,22 @@ export default () => {
       Swal.fire('Error', 'Stack Empty', 'error');
       return;
     }
-    if (step) setTimeout(popItem, 2000);
+    setArr((arr) => arr.slice(0, -1));
+    if (step) setTimeout(popItem, 1000);
     else popItem();
   }
 
   const popItem = () => {
-    setArr((arr) => arr.slice(0, -1));
+    moveTop(arr.length - 1);
   }
 
-  const moveTop = () => {
-
+  const moveTop = (size: number) => {
+    setTopPosition((capacity - size + 1) * 50 + 40);
   }
+  
+  useEffect(() => {
+    moveTop(0);
+  }, []);
 
   return (
     <>
@@ -106,7 +117,7 @@ export default () => {
           ))}
         </StackContainer>
       </StackWrapper>
-      <TopWrapper style={{ top: (capacity - arr.length) * 50 + 90 }}>
+      <TopWrapper style={{ top: topPositon }}>
         <img src={arrow} width={50} />
         <div>top</div>
       </TopWrapper>
