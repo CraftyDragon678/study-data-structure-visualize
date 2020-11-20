@@ -5,12 +5,26 @@ import ColumnContainer from "../components/ColumnContainer";
 import Element from "../components/Element";
 import { ElementProps } from "../types/element";
 
+const StackWrapper = styled.div`
+  display: flex;
+`;
+
+const StackIndex = styled.div`
+  display: grid;
+  width: 30px;
+  div {
+    height: 50px;
+    display: grid;
+    place-items: center;
+  }
+`;
+
 const StackContainer = styled(ColumnContainer)`
   flex-direction: column-reverse;
 `;
 
 export default () => {
-  const [capacity, setCapacity] = useState(0);
+  const [capacity, setCapacity] = useState(10);
   const [arr, setArr] = useState<ElementProps[]>([]);
 
   const push = () => {
@@ -39,11 +53,18 @@ export default () => {
       <input type="number" value={capacity} onChange={(e) => !isNaN(+e.target.value) && setCapacity(+e.target.value)} />
       <button onClick={push}>+</button>
       <button onClick={pop}>-</button>
-      <StackContainer height={capacity}>
-        {arr.map((v) => (
-          <Element key={v.key} style={{ backgroundColor: `#${v.color}`}} >{v.val}</Element>
-        ))}
-      </StackContainer>
+      <StackWrapper>
+        <StackIndex>
+          {[...Array(capacity + 1)].map((_, i) => (
+            <div key={i}>{capacity - i - 1}</div>
+          ))}
+        </StackIndex>
+        <StackContainer height={capacity}>
+          {arr.map((v) => (
+            <Element key={v.key} style={{ backgroundColor: `#${v.color}`}} >{v.val}</Element>
+          ))}
+        </StackContainer>
+      </StackWrapper>
     </>
   );
 };
