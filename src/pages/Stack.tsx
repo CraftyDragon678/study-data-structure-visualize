@@ -88,8 +88,8 @@ export default () => {
   }
   
   useEffect(() => {
-    moveTop(0);
-  }, []);
+    moveTop(arr.length);
+  }, [capacity]);
 
   return (
     <>
