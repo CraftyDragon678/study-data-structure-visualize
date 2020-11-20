@@ -12,7 +12,7 @@ export default () => {
   const [capacity, setCapacity] = useState(0);
   const [arr, setArr] = useState<ElementProps[]>([]);
 
-  const add = () => {
+  const push = () => {
     setArr([...arr, {
       val: Math.floor(Math.random() * 100).toString(),
       key: Math.floor(Math.random() * (16 ** 8 - 1)).toString(16),
@@ -20,11 +20,16 @@ export default () => {
     }]);
   }
 
+  const pop = () => {
+    setArr(arr.slice(0, -1));
+  }
+
   return (
     <>
       <label>capacity: </label>
       <input type="number" value={capacity} onChange={(e) => !isNaN(+e.target.value) && setCapacity(+e.target.value)} />
-      <button onClick={add}>+</button>
+      <button onClick={push}>+</button>
+      <button onClick={pop}>-</button>
       <StackContainer height={capacity}>
         {arr.map((v) => (
           <Element key={v.key} style={{ backgroundColor: `#${v.color}`}} >{v.val}</Element>
