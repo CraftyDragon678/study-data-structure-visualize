@@ -55,12 +55,10 @@ export default () => {
     }
     if (startWithZero) {
       pushItem();
-      if (step) setTimeout(() => moveTop(arr.length + 1), 1000);
-      else moveTop(arr.length + 1);
+      setTimeout(() => moveTop(arr.length + 1), +step * 1000);
     } else {
       moveTop(arr.length + 1);
-      if (step) setTimeout(pushItem, 1000);
-      else pushItem();
+      setTimeout(pushItem, +step * 1000);
     }
   }
 
@@ -83,12 +81,10 @@ export default () => {
     }
     if (startWithZero) {
       moveTop(arr.length - 1);
-      if (step) setTimeout(() => setArr((arr) => arr.slice(0, -1)), 1000);
-      else setArr((arr) => arr.slice(0, -1));
+      setTimeout(() => setArr((arr) => arr.slice(0, -1)), +step * 1000);
     } else {
       setArr((arr) => arr.slice(0, -1));
-      if (step) setTimeout(() => moveTop(arr.length - 1), 1000);
-      else moveTop(arr.length - 1);
+      setTimeout(() => moveTop(arr.length - 1), +step * 1000);
     }
   }
 
