@@ -1,5 +1,4 @@
-import styled from "@emotion/styled";
-import variables from "../styles/variables";
+import styled from '@emotion/styled';
 
 const Element = styled.div`
   width: 150px;

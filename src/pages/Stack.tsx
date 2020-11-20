@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import ColumnContainer from "../components/ColumnContainer";
-import Element from "../components/Element";
-import { ElementProps } from "../types/element";
-import arrow from "../assets/arrow.svg";
+import styled from '@emotion/styled';
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import ColumnContainer from '../components/ColumnContainer';
+import Element from '../components/Element';
+import { ElementProps } from '../types/element';
+import arrow from '../assets/arrow.svg';
 
 const StackWrapper = styled.div`
   display: flex;
@@ -60,7 +60,7 @@ export default () => {
       moveTop(arr.length + 1);
       setTimeout(pushItem, +step * 1000);
     }
-  }
+  };
 
   const pushItem = () => {
     if (arr.length >= capacity) {
@@ -70,9 +70,9 @@ export default () => {
     setArr((arr) => [...arr, {
       val: Math.floor(Math.random() * 100).toString(),
       key: Math.floor(Math.random() * (16 ** 8 - 1)).toString(16),
-      color: Math.floor(Math.random()*16777215).toString(16),
+      color: Math.floor(Math.random() * 16777215).toString(16),
     }]);
-  }
+  };
 
   const pop = () => {
     if (arr.length <= 0) {
@@ -86,12 +86,12 @@ export default () => {
       setArr((arr) => arr.slice(0, -1));
       setTimeout(() => moveTop(arr.length - 1), +step * 1000);
     }
-  }
+  };
 
   const moveTop = (size: number) => {
     setTopPosition((capacity - size - +startWithZero + 1) * 50 + 60);
-  }
-  
+  };
+
   useEffect(() => {
     moveTop(arr.length);
   }, [capacity, startWithZero]);
@@ -105,11 +105,11 @@ export default () => {
         </div>
         <div>
           <label>step: </label>
-          <input type="checkbox" checked={step} onChange={(e) => setStep(e.target.checked) } />
+          <input type="checkbox" checked={step} onChange={(e) => setStep(e.target.checked)} />
         </div>
         <div>
           <label>start from 0: </label>
-          <input type="checkbox" checked={startWithZero} onChange={(e) => setStartWithZero(e.target.checked) } />
+          <input type="checkbox" checked={startWithZero} onChange={(e) => setStartWithZero(e.target.checked)} />
         </div>
         <button onClick={push}>+</button>
         <button onClick={pop}>-</button>
@@ -122,7 +122,7 @@ export default () => {
         </StackIndex>
         <StackContainer height={capacity}>
           {arr.map((v) => (
-            <Element key={v.key} style={{ backgroundColor: `#${v.color}`}} >{v.val}</Element>
+            <Element key={v.key} style={{ backgroundColor: `#${v.color}` }}>{v.val}</Element>
           ))}
         </StackContainer>
       </StackWrapper>
@@ -133,4 +133,3 @@ export default () => {
     </>
   );
 };
-
