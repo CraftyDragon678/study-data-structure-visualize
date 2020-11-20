@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 import ColumnContainer from "../components/ColumnContainer";
 import Element from "../components/Element";
 import { ElementProps } from "../types/element";
@@ -13,6 +14,10 @@ export default () => {
   const [arr, setArr] = useState<ElementProps[]>([]);
 
   const push = () => {
+    if (arr.length >= capacity) {
+      Swal.fire('Error', 'Stack Full', 'error');
+      return;
+    }
     setArr([...arr, {
       val: Math.floor(Math.random() * 100).toString(),
       key: Math.floor(Math.random() * (16 ** 8 - 1)).toString(16),
@@ -21,6 +26,10 @@ export default () => {
   }
 
   const pop = () => {
+    if (arr.length <= 0) {
+      Swal.fire('Error', 'Stack Empty', 'error');
+      return;
+    }
     setArr(arr.slice(0, -1));
   }
 
