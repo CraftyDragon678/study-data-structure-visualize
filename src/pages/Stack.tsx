@@ -23,6 +23,10 @@ const StackContainer = styled(ColumnContainer)`
   flex-direction: column-reverse;
 `;
 
+const ControllerWrapper = styled.div`
+  margin-bottom: 10px;
+`;
+
 export default () => {
   const [capacity, setCapacity] = useState(10);
   const [arr, setArr] = useState<ElementProps[]>([]);
@@ -49,10 +53,12 @@ export default () => {
 
   return (
     <>
-      <label>capacity: </label>
-      <input type="number" value={capacity} onChange={(e) => !isNaN(+e.target.value) && setCapacity(+e.target.value)} />
-      <button onClick={push}>+</button>
-      <button onClick={pop}>-</button>
+      <ControllerWrapper>
+        <label>capacity: </label>
+        <input type="number" value={capacity} onChange={(e) => !isNaN(+e.target.value) && setCapacity(+e.target.value)} />
+        <button onClick={push}>+</button>
+        <button onClick={pop}>-</button>
+      </ControllerWrapper>
       <StackWrapper>
         <StackIndex>
           {[...Array(capacity + 1)].map((_, i) => (
