@@ -100,19 +100,19 @@ export default () => {
     <>
       <ControllerWrapper>
         <div>
-          <label>capacity: </label>
-          <input type="number" value={capacity} onChange={(e) => !isNaN(+e.target.value) && setCapacity(+e.target.value)} />
+          <label htmlFor="capacity">capacity: </label>
+          <input id="capacity" type="number" value={capacity} onChange={(e) => !Number.isNaN(+e.target.value) && setCapacity(+e.target.value)} />
         </div>
         <div>
-          <label>step: </label>
-          <input type="checkbox" checked={step} onChange={(e) => setStep(e.target.checked)} />
+          <label htmlFor="step">step: </label>
+          <input id="step" type="checkbox" checked={step} onChange={(e) => setStep(e.target.checked)} />
         </div>
         <div>
-          <label>start from 0: </label>
-          <input type="checkbox" checked={startWithZero} onChange={(e) => setStartWithZero(e.target.checked)} />
+          <label htmlFor="start0">start from 0: </label>
+          <input id="start0" type="checkbox" checked={startWithZero} onChange={(e) => setStartWithZero(e.target.checked)} />
         </div>
-        <button onClick={push}>+</button>
-        <button onClick={pop}>-</button>
+        <button type="button" onClick={push}>+</button>
+        <button type="button" onClick={pop}>-</button>
       </ControllerWrapper>
       <StackWrapper>
         <StackIndex>
@@ -127,7 +127,7 @@ export default () => {
         </StackContainer>
       </StackWrapper>
       <TopWrapper style={{ top: topPositon }}>
-        <img src={arrow} width={50} />
+        <img alt="top" src={arrow} width={50} />
         <div>top</div>
       </TopWrapper>
     </>
