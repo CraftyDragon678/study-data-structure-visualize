@@ -92,6 +92,17 @@ export default () => {
     setTopPosition((capacity - size - +startWithZero + 1) * 50 + 60);
   };
 
+  const changeCapacity = (cap: string) => {
+    if (Number.isNaN(+cap)) {
+      return;
+    }
+    if (+cap < arr.length) {
+      Swal.fire('Error', 'can\'t resize', 'error');
+      return;
+    }
+    setCapacity(+cap);
+  };
+
   useEffect(() => {
     moveTop(arr.length);
   }, [capacity, startWithZero]);
@@ -101,7 +112,7 @@ export default () => {
       <ControllerWrapper>
         <div>
           <label htmlFor="capacity">capacity: </label>
-          <input id="capacity" type="number" value={capacity} onChange={(e) => !Number.isNaN(+e.target.value) && setCapacity(+e.target.value)} />
+          <input id="capacity" type="number" value={capacity} onChange={(e) => changeCapacity(e.target.value)} />
         </div>
         <div>
           <label htmlFor="step">step: </label>
