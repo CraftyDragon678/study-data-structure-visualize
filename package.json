@@ -2,7 +2,7 @@
   "name": "data-structure-visualize",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://craftydragon678.github.io/study-data-structure-visualize",
+  "homepage": "https://craftydragon678.github.io/study-data-structure-visualize/",
   "dependencies": {
     "@emotion/core": "^10.0.27",
     "@emotion/css": "^10.0.27",
