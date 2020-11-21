@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Root, Stack, LinkedStack } from '../pages';
 
 const App: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Switch>
       <Route exact path="/" component={Root} />
       <Route exact path="/stack" component={Stack} />
