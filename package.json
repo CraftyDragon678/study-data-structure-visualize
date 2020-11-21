@@ -54,7 +54,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "predeploy": "PUBLIC_URL=/study-data-strucutre-visualize/ npm run build",
+    "predeploy": "PUBLIC_URL=/study-data-structure-visualize/ npm run build",
     "deploy": "gh-pages -d build"
   },
   "browserslist": {
